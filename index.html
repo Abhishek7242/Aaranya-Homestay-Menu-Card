@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Menu</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #f8fffa 0%, #e0eafc 100%);
+        margin: 0;
+        padding: 0;
+        color: #222;
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: linear-gradient(90deg, #43cea2, #185a9d);
+        color: white;
+        padding: 1.5rem 1rem;
+        text-align: center;
+        font-size: 2.2rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-radius: 0 0 18px 18px;
+      }
+      main {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+      section {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 18px;
+        padding: 1.5rem 1rem 1.2rem 1rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 6px 24px rgba(67, 206, 162, 0.08),
+          0 1.5px 6px rgba(24, 90, 157, 0.06);
+        transition: transform 0.2s, box-shadow 0.2s;
+        border: 1.5px solid #e0eafc;
+      }
+      section:hover {
+        transform: translateY(-2px) scale(1.01);
+        box-shadow: 0 10px 32px rgba(67, 206, 162, 0.13),
+          0 2px 8px rgba(24, 90, 157, 0.09);
+      }
+      h2 {
+        color: #185a9d;
+        font-size: 1.5rem;
+        margin-bottom: 0.7rem;
+        border-left: 5px solid #43cea2;
+        padding-left: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+      .section-description {
+        font-style: italic;
+        margin-bottom: 0.7rem;
+        color: #3a7ca5;
+        font-size: 1.08rem;
+      }
+      .menu-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .menu-table {
+        width: 100%;
+        min-width: 320px;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-top: 0.5rem;
+        background: transparent;
+      }
+      .menu-table th,
+      .menu-table td {
+        padding: 0.7rem 0.7rem;
+        text-align: left;
+        border-bottom: 1px solid #e0eafc;
+        font-size: 1.08rem;
+      }
+      .menu-table th {
+        background-color: #f4faff;
+        color: #185a9d;
+        font-weight: 700;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+      }
+      .menu-table tr:hover td {
+        background-color: #f0f9f6;
+        transition: background 0.2s;
+      }
+      .menu-table td:last-child,
+      .menu-table th:last-child {
+        text-align: right;
+      }
+      @media (max-width: 900px) {
+        main {
+          max-width: 100vw;
+        }
+      }
+      @media (max-width: 600px) {
+        header {
+          font-size: 1.3rem;
+          padding: 1rem 0.5rem;
+          border-radius: 0 0 12px 12px;
+        }
+        section {
+          padding: 1rem 0.5rem 0.8rem 0.5rem;
+          border-radius: 12px;
+        }
+        h2 {
+          font-size: 1.1rem;
+          padding-left: 0.5rem;
+        }
+        .menu-table th,
+        .menu-table td {
+          padding: 0.5rem 0.4rem;
+          font-size: 0.98rem;
+        }
+      }
+      @media (max-width: 400px) {
+        main {
+          padding: 0 0.1rem;
+        }
+        section {
+          padding: 0.7rem 0.2rem 0.5rem 0.2rem;
+        }
+        h2 {
+          font-size: 0.98rem;
+        }
+      }
+      @media (max-width: 320px) {
+        header {
+          font-size: 1rem;
+          padding: 0.7rem 0.2rem;
+        }
+        section {
+          padding: 0.4rem 0.1rem 0.3rem 0.1rem;
+        }
+        h2 {
+          font-size: 0.85rem;
+        }
+        .menu-table th,
+        .menu-table td {
+          font-size: 0.8rem;
+          padding: 0.3rem 0.2rem;
+        }
+        .menu-table {
+          min-width: 220px;
+        }
+        .thali-card {
+          padding: 0.2rem 0.05rem 0.1rem 0.05rem;
+          border-radius: 7px;
+        }
+        .thali-card .thali-title {
+          font-size: 0.7rem;
+        }
+        .thali-card .thali-list {
+          font-size: 0.7rem;
+        }
+        .thali-card .thali-price {
+          font-size: 0.8rem;
+          padding: 0.1em 0.3em;
+        }
+        .thali-cards {
+          gap: 0.3rem;
+        }
+      }
+      @media (max-width: 290px) {
+        header {
+          font-size: 0.8rem;
+          padding: 0.4rem 0.05rem;
+        }
+        section {
+          padding: 0.2rem 0.01rem 0.1rem 0.01rem;
+        }
+        h2 {
+          font-size: 0.7rem;
+        }
+        .menu-table th,
+        .menu-table td {
+          font-size: 0.65rem;
+          padding: 0.15rem 0.1rem;
+        }
+        .menu-table {
+          min-width: 180px;
+        }
+        .thali-card {
+          padding: 0.1rem 0.01rem 0.05rem 0.01rem;
+          border-radius: 5px;
+        }
+        .thali-card .thali-title {
+          font-size: 0.55rem;
+        }
+        .thali-card .thali-list {
+          font-size: 0.55rem;
+        }
+        .thali-card .thali-price {
+          font-size: 0.6rem;
+          padding: 0.05em 0.15em;
+        }
+        .thali-cards {
+          gap: 0.1rem;
+        }
+      }
+      /* Thali cards */
+      .thali-cards {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 0.5rem;
+      }
+      .thali-card {
+        flex: 1 1 220px;
+        min-width: 0;
+        background: linear-gradient(120deg, #e0eafc 60%, #f8fffa 100%);
+        border-radius: 14px;
+        box-shadow: 0 2px 8px rgba(67, 206, 162, 0.08);
+        padding: 1rem 1rem 0.8rem 1rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid #b2d8f7;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+      }
+      .thali-card .thali-title {
+        font-weight: 700;
+        color: #185a9d;
+        font-size: 1.1rem;
+        margin-bottom: 0.3rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4em;
+      }
+      .thali-card .thali-list {
+        margin: 0 0 0.5rem 0;
+        padding: 0 0 0 1.1em;
+        font-size: 0.98rem;
+        color: #2c3e50;
+      }
+      .thali-card .thali-price {
+        font-size: 1.08rem;
+        font-weight: 700;
+        color: #27ae60;
+        margin-top: auto;
+        background: #eafaf1;
+        border-radius: 8px;
+        padding: 0.2em 0.7em;
+        align-self: flex-end;
+      }
+      .thali-card .thali-icon {
+        font-size: 1.2em;
+        margin-right: 0.2em;
+      }
+      @media (max-width: 600px) {
+        .thali-cards {
+          flex-direction: column;
+          gap: 0.7rem;
+        }
+        .thali-card {
+          padding: 0.8rem 0.7rem 0.6rem 0.7rem;
+          border-radius: 10px;
+        }
+        .thali-card .thali-title {
+          font-size: 1rem;
+        }
+        .thali-card .thali-list {
+          font-size: 0.93rem;
+        }
+        .thali-card .thali-price {
+          font-size: 1rem;
+          padding: 0.15em 0.5em;
+        }
+      }
+      @media (max-width: 400px) {
+        .thali-card {
+          padding: 0.6rem 0.3rem 0.4rem 0.3rem;
+        }
+        .thali-card .thali-title {
+          font-size: 0.93rem;
+        }
+        .thali-card .thali-list {
+          font-size: 0.88rem;
+        }
+      }
+      @media (max-width: 320px) {
+        .thali-card {
+          padding: 0.4rem 0.1rem 0.2rem 0.1rem;
+        }
+        .thali-card .thali-title {
+          font-size: 0.85rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>Restaurant Menu</header>
+    <main>
+      <section>
+        <h2>Breakfast</h2>
+        <div class="menu-table-wrapper">
+          <table class="menu-table">
+            <tr>
+              <th>Item</th>
+              <th>Price</th>
+            </tr>
+            <tr>
+              <td>Aloo Parantha</td>
+              <td>₹60</td>
+            </tr>
+            <tr>
+              <td>Paneer Parantha</td>
+              <td>₹90</td>
+            </tr>
+            <tr>
+              <td>Onion Parantha</td>
+              <td>₹70</td>
+            </tr>
+            <tr>
+              <td>Gobhi Parantha</td>
+              <td>₹70</td>
+            </tr>
+            <tr>
+              <td>Mix Parantha</td>
+              <td>₹80</td>
+            </tr>
+            <tr>
+              <td>Chole Bhature</td>
+              <td>₹90</td>
+            </tr>
+            <tr>
+              <td>Chinese Parantha</td>
+              <td>₹120</td>
+            </tr>
+            <tr>
+              <td>Butter Toast</td>
+              <td>₹45</td>
+            </tr>
+            <tr>
+              <td>Veg Sandwich</td>
+              <td>₹50</td>
+            </tr>
+            <tr>
+              <td>Tea</td>
+              <td>₹35</td>
+            </tr>
+            <tr>
+              <td>Coffee</td>
+              <td>₹60</td>
+            </tr>
+          </table>
+        </div>
+      </section>
+      <section>
+        <h2>Lunch</h2>
+        <div class="menu-table-wrapper">
+          <table class="menu-table">
+            <tr>
+              <th>Item</th>
+              <th>Price</th>
+            </tr>
+            <tr>
+              <td>Dal Makhni</td>
+              <td>₹220</td>
+            </tr>
+            <tr>
+              <td>Dal Fry</td>
+              <td>₹200</td>
+            </tr>
+            <tr>
+              <td>Dal Tadka</td>
+              <td>₹200</td>
+            </tr>
+            <tr>
+              <td>Rajma</td>
+              <td>₹210</td>
+            </tr>
+            <tr>
+              <td>Kadai Paneer</td>
+              <td>₹250</td>
+            </tr>
+            <tr>
+              <td>Shahi Paneer</td>
+              <td>₹280</td>
+            </tr>
+            <tr>
+              <td>Mutter Paneer</td>
+              <td>₹250</td>
+            </tr>
+            <tr>
+              <td>Mutter Mushroom</td>
+              <td>₹250</td>
+            </tr>
+            <tr>
+              <td>Jeera Rice</td>
+              <td>₹160</td>
+            </tr>
+            <tr>
+              <td>Steam Rice</td>
+              <td>₹130</td>
+            </tr>
+            <tr>
+              <td>Plain Roti</td>
+              <td>₹20</td>
+            </tr>
+            <tr>
+              <td>Butter Roti</td>
+              <td>₹30</td>
+            </tr>
+          </table>
+        </div>
+      </section>
+      <section>
+        <h2>Thali</h2>
+        <div class="thali-cards">
+          <div class="thali-card">
+            <span class="thali-title"
+              ><span class="thali-icon">🌟</span>Special Thali</span
+            >
+            <ul class="thali-list">
+              <li>Rajma</li>
+              <li>Mutter Paneer</li>
+              <li>Dahi</li>
+              <li>Butter</li>
+              <li>Roti</li>
+              <li>Salad</li>
+              <li>Ice Cream</li>
+            </ul>
+            <span class="thali-price">₹250</span>
+          </div>
+          <div class="thali-card">
+            <span class="thali-title"
+              ><span class="thali-icon">🥗</span>Regular Thali</span
+            >
+            <ul class="thali-list">
+              <li>Dal</li>
+              <li>Sabzi</li>
+              <li>Roti</li>
+              <li>Salad</li>
+              <li>Raita</li>
+            </ul>
+            <span class="thali-price">₹200</span>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>Snacks</h2>
+        <div class="menu-table-wrapper">
+          <table class="menu-table">
+            <tr>
+              <th>Item</th>
+              <th>Price</th>
+            </tr>
+            <tr>
+              <td>French Fries</td>
+              <td>₹180</td>
+            </tr>
+            <tr>
+              <td>Chilli Paneer</td>
+              <td>₹280</td>
+            </tr>
+            <tr>
+              <td>Chilli Potato</td>
+              <td>₹230</td>
+            </tr>
+            <tr>
+              <td>Veg Momos</td>
+              <td>₹120</td>
+            </tr>
+            <tr>
+              <td>Fried Momos</td>
+              <td>₹150</td>
+            </tr>
+            <tr>
+              <td>Veg Noodles</td>
+              <td>₹120</td>
+            </tr>
+            <tr>
+              <td>Veg Burger</td>
+              <td>₹80</td>
+            </tr>
+            <tr>
+              <td>Veg Roll</td>
+              <td>₹130</td>
+            </tr>
+            <tr>
+              <td>Paneer Roll</td>
+              <td>₹150</td>
+            </tr>
+          </table>
+        </div>
+      </section>
+      <section>
+        <h2>Shakes</h2>
+        <div class="menu-table-wrapper">
+          <table class="menu-table">
+            <tr>
+              <th>Item</th>
+              <th>Price</th>
+            </tr>
+            <tr>
+              <td>Mango Shake</td>
+              <td>₹100</td>
+            </tr>
+            <tr>
+              <td>Strawberry Shake</td>
+              <td>₹100</td>
+            </tr>
+            <tr>
+              <td>Banana Shake</td>
+              <td>₹80</td>
+            </tr>
+            <tr>
+              <td>Badam Shake</td>
+              <td>₹120</td>
+            </tr>
+          </table>
+        </div>
+      </section>
+      <section>
+        <h2>Juices</h2>
+        <div class="menu-table-wrapper">
+          <table class="menu-table">
+            <tr>
+              <th>Item</th>
+              <th>Price</th>
+            </tr>
+            <tr>
+              <td>Softy</td>
+              <td>₹90</td>
+            </tr>
+            <tr>
+              <td>Sugarcane Juice</td>
+              <td>₹70</td>
+            </tr>
+          </table>
+        </div>
+      </section>
+      <section>
+        <h2>Pizza</h2>
+        <div class="menu-table-wrapper">
+          <table class="menu-table">
+            <tr>
+              <th>Item</th>
+              <th>Price</th>
+            </tr>
+            <tr>
+              <td>Veg Pizza</td>
+              <td>₹200</td>
+            </tr>
+            <tr>
+              <td>Special Pizza</td>
+              <td>₹280</td>
+            </tr>
+          </table>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
