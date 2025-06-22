@@ -302,6 +302,52 @@
           font-size: 0.85rem;
         }
       }
+      /* Footer styles */
+      footer {
+        background: linear-gradient(90deg, #185a9d, #43cea2);
+        color: white;
+        text-align: center;
+        padding: 1.5rem 1rem;
+        margin-top: 2rem;
+        border-radius: 18px 18px 0 0;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+      }
+      .footer-content {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .developer-info {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .portfolio-link {
+        color: #e0eafc;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .portfolio-link:hover {
+        color: #ffffff;
+        text-decoration: underline;
+      }
+      @media (max-width: 600px) {
+        footer {
+          padding: 1rem 0.5rem;
+          border-radius: 12px 12px 0 0;
+        }
+        .developer-info {
+          font-size: 1rem;
+        }
+      }
+      @media (max-width: 400px) {
+        footer {
+          padding: 0.8rem 0.3rem;
+        }
+        .developer-info {
+          font-size: 0.9rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -567,5 +613,16 @@
         </div>
       </section>
     </main>
+    <footer>
+      <div class="footer-content">
+        <div class="developer-info">Developed by Abhishek Verma</div>
+        <a
+          href="https://abhishekverma.dev"
+          class="portfolio-link"
+          target="_blank"
+          >View Portfolio</a
+        >
+      </div>
+    </footer>
   </body>
 </html>
